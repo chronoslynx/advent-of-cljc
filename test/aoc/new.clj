@@ -19,7 +19,7 @@
   (:require
    [aoc.utils :as u :refer [deftest read-string format]]
    [aoc.y%s.d%s.data :refer [input answer-1 answer-2]]
-   [clojure.test :refer [is testing]]))
+   [clojure.test :as t :refer [is testing]]))
 
 (defn solve-1 []
   ;; TODO
@@ -36,9 +36,20 @@
 (deftest part-2
   (is (= (str answer-2)
          (str (solve-2)))))
+
+;;;; Scratch
+
+(comment
+  (t/run-tests)
+)
 " year day user year day))
 
 (defn create-new [{:keys [year day user]}]
+  (when (contains? (into #{} [day year user]) nil)
+    (throw (Exception. (str "Some required arguments are null: "
+                            {:day day
+                             :year year
+                             :user user}))))
   (let [day (format "%02d" day)
         data-out (io/file "src" "aoc"
                           (str "y" year)
@@ -66,7 +77,7 @@
     :parse-fn #(Integer/parseInt %)
     :validate [#(<= 0 % 25) "Must be a number between 1 and 25 (inclusive)"]]
    ["-u" "--user USER" "User"
-    :validate [#(re-find #"^[a-z]" %) "Username must start with letter"]]
+    :validate [#(re-find #"^[A-Za-z]" %) "Username must start with letter"]]
    ["-h" "--help"]])
 
 (defn -main
@@ -87,3 +98,4 @@
             (println e))
           :else
           (create-new options))))
+
