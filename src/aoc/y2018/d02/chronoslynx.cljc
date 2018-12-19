@@ -22,7 +22,6 @@
                          (clojure.string/split-lines input)))
         dubs (count (filter identity (map #(contains? % 2) stream)))
         trips (count (filter identity (map #(contains? % 3) stream)))]
-    (println dubs trips)
     (* dubs trips)))
 
 (defn count-diffs [line1 line2]
@@ -46,7 +45,7 @@
         line (nth correct 0)
         [match count] (nth (nth correct 1) 0)
         ]
-    (common-letters line match)
+    (apply str (common-letters line match))
     ))
 
 (deftest part-1
