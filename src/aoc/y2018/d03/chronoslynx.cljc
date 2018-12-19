@@ -39,10 +39,10 @@
     {:id id :overlap false}))
 
 (defn solve-2 []
-  ;; TODO: find the id where all coords appear exactly once in freqs
-  (let [fs (freqs)]
-    (map #(nth % 0) (filter (fn [[id vs]] (not-any? :overlap vs)) (group-by :id (map #(has-overlap % fs) (parsed))))))
-  )
+  (let [fs (freqs)
+        grouped (group-by :id (map #(has-overlap % fs) (parsed)))
+        nonoverlapping (filter (fn [[id vs]] (not-any? :overlap vs)) grouped)]
+    (str (nth (map #(nth % 0) nonoverlapping) 0)) ))
 
 (deftest part-1
   (is (= answer-1 (solve-1))))
