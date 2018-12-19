@@ -65,7 +65,7 @@
         [sleepiest-guard _] (apply max-key val sleep-totals)
         [sleepiest-minute _] (sleepiest-guard (top-minutes))
         ]
-    (* (read-string (name sleepiest-guard)) (.getMinute sleepiest-minute))))
+    (* (u/read-string (name sleepiest-guard)) (.getMinute sleepiest-minute))))
 
 (defn solve-2 []
   (let [state (processed)
@@ -77,7 +77,7 @@
                                   (if (> count ccount)
                                     [%2 minute count]
                                     %)) [0 0 0] minutes)]
-    (* (read-string (name guard)) (.getMinute bestmin)))
+    (* (u/read-string (name guard)) (.getMinute bestmin)))
   )
 
 (deftest part-1

@@ -1,3 +1,11 @@
+(defmacro deftime
+  "Private. deftime macro from https://github.com/cgrand/macrovich"
+  [& body]
+  (when #?(:clj (not (:ns &env))
+           :cljs (when-let [n (and *ns* (ns-name *ns*))]
+                   (re-matches #".*\$macros" (name n))))
+    `(do ~@body)))
+
 (ns aoc.utils
   (:refer-clojure :exclude [time format read-string ExceptionInfo])
   (:require #?(:clj [clojure.edn :as edn]
@@ -8,14 +16,6 @@
             [clojure.string :as str]
             #?(:cljs [oops.core :refer [ocall oget]]))
   #?(:cljs (:require-macros [aoc.utils :refer [deftest]])))
-
-(defmacro deftime
-  "Private. deftime macro from https://github.com/cgrand/macrovich"
-  [& body]
-  (when #?(:clj (not (:ns &env))
-           :cljs (when-let [n (and *ns* (ns-name *ns*))]
-                   (re-matches #".*\$macros" (name n))))
-    `(do ~@body)))
 
 (defn parse-int [s]
   #?(:clj (Integer/parseInt s)
@@ -131,5 +131,3 @@
 ;;;; Scratch
 
 (comment)
-
-

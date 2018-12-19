@@ -10,7 +10,7 @@
   [match requestNum x y width height] or nil"
   [line]
   ;;#1 @ 1,3: 4x4 -> num @ x,y: wxh
-  (let [[i x y w h] (map read-string (rest (re-matches #"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)" (clojure.string/trim line))))]
+  (let [[i x y w h] (map u/read-string (rest (re-matches #"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)" (clojure.string/trim line))))]
     (for [nx (range x (+ x w))
           ny (range y (+ y h))]
       {:id i :coord [nx ny]})

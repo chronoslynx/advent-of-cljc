@@ -1,6 +1,5 @@
 (ns aoc.y2018.d02.chronoslynx
   (:require
-   [cljs.reader :as reader]
    [aoc.utils :as u :refer [deftest]]
    [aoc.y2018.d02.data :refer [input answer-1 answer-2]]
    [clojure.test :refer [is testing]]))

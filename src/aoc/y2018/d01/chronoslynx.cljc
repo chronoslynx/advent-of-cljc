@@ -1,12 +1,13 @@
 (ns aoc.y2018.d01.chronoslynx
   (:require
-   [cljs.reader :as reader]
    [aoc.utils :as u :refer [deftest]]
    [aoc.y2018.d01.data :refer [input answer-1 answer-2]]
    [clojure.test :refer [is testing]]))
 
+(def lines (memoize #(map u/read-string (clojure.string/split-lines input))))
+
 (defn solve-1 []
-  (reduce + (map read-string (clojure.string/split-lines input))))
+  (reduce + (lines)))
 
 (defn find-dup [state stream seen]
   (let [[x & xs] stream
@@ -16,7 +17,7 @@
       (recur nstate xs (conj seen nstate)))))
 
 (defn solve-2 []
-  (let [nums (map read-string (clojure.string/split-lines input))
+  (let [nums (lines)
         state 0
         seen (set '(0))]
     (find-dup state (cycle nums) seen)))
